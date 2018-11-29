@@ -1,0 +1,26 @@
+@import '../StyleDefaults/variables';
+
+.el-Button{
+	display: flex;
+	width: 40px;
+	height: 40px;
+	transition: all 0.5s ease-in-out;
+	background-color: darkgray;
+	border-radius: 25px;
+	color: $white;
+	justify-content: center;
+	align-items: center;
+	&-disabled{
+		display: none;
+	}
+	&:hover{
+		background-color: $green;
+		cursor: pointer;
+	}
+	.fa, .fa-check{
+		width: 20px;
+		height: 20px;
+		font-size: 20px;
+		font-weight: lighter;
+	}
+}
