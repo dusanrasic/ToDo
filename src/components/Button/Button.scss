@@ -1,20 +1,23 @@
 @import '../StyleDefaults/variables';
 
-.el-Button{
+@mixin button(){
 	display: flex;
-	width: 40px;
-	height: 40px;
-	transition: all 0.5s ease-in-out;
+	width: 36px;
+	height: 36px;
+	transition: all 0.3s ease-in-out;
 	background-color: darkgray;
 	border-radius: 25px;
 	color: $white;
 	justify-content: center;
 	align-items: center;
+	opacity: 0.8;
+	box-sizing: border-box;
+	margin: 2px;
 	&-disabled{
 		display: none;
 	}
 	&:hover{
-		background-color: $green;
+		opacity: 1;
 		cursor: pointer;
 	}
 	.fa, .fa-check{
@@ -22,5 +25,27 @@
 		height: 20px;
 		font-size: 20px;
 		font-weight: lighter;
+		text-align: center;
 	}
+}
+.el-Button{
+	&-check{
+		@include button();
+		&:hover{
+			color: $green;
+		}
+	}
+	&-pencil{
+		@include button();
+		&:hover{
+			color: $blue;
+		}
+	}
+	&-trash{
+		@include button();
+		&:hover{
+			color: $red;
+		}
+	}
+	
 }

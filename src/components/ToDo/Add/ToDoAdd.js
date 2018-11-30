@@ -30,10 +30,15 @@ export default class ToDoAdd extends Component {
 
 		return (
 			<div className={CLASS}>
-				<Input onFocus={this.handleFocusIn} onBlur={this.handleFocusOut}/>
+				<Input 
+				onFocus={this.handleFocusIn} 
+				onBlur={this.handleFocusOut}
+				label="What needs to be done?"
+				/>
 				<Button
 					icon={'check'}
 					disabled={!focus}
+					diff='check'
 				/>
 				<Separator/>
 			</div>

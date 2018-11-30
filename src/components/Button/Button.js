@@ -5,15 +5,15 @@ import './Button.scss';
 
 const CLASS = 'el-Button';
 
-export const Button = ({label, icon, onClick, disabled}) => {
+export const Button = ({label, icon, onClick, disabled, diff}) => {
 	const handleClick = (e) => {		
 
 		onClick && onClick(e);
 	}
 	const renderButton = () => {
-		const disabledClass = disabled ? CLASS+'-disabled' : '';
+		const disabledClass = disabled ? CLASS+'-'+diff+'-disabled' : '';
 		return (
-			<div className={CLASS+' '+disabledClass} onClick={handleClick}>
+			<div className={CLASS+'-'+diff+' '+disabledClass} onClick={handleClick}>
 				{icon && <FontAwesome name={icon}/>}
 				{label}
 			</div>

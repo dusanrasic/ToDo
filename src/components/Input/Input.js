@@ -4,7 +4,7 @@ import './Input.scss';
 
 const CLASS = 'el-Input';
 
-export const Input = ({onFocus, onBlur}) => {
+export const Input = ({label, onFocus, onBlur, val, read}) => {
 	const handleFocus = (e) => {
 		onFocus && onFocus(e);
 	}
@@ -13,7 +13,7 @@ export const Input = ({onFocus, onBlur}) => {
 	}
 	return (
 		<div className={CLASS}>
-			<input type='text' className={CLASS+'-text'} onFocus={handleFocus} onBlur={handleBlur}/>		
+			<input type='text' placeholder={label} className={CLASS+'-text'} onFocus={handleFocus} onBlur={handleBlur} value={val} readOnly={read}/>
 		</div>
 	)
 }

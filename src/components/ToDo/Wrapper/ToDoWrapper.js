@@ -12,6 +12,8 @@ export default class ToDoWrapper extends Component {
 	return (
 	  <div className={CLASS}>
 			<Add/>
+			<Filter/>
+			<Items/>
 	  </div>
 	)
   }
