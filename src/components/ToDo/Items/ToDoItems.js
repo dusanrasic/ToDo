@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {ToDoItem} from '../Item/ToDoItem';
-import {ToDoEdit} from '../Edit/ToDoEdit'
 
 import './ToDoItems.scss';
 
@@ -10,17 +9,15 @@ export default class ToDoItems extends Component {
 	constructor(){
 		super();
 		this.state = {
-			value: 'ToDoItem'
+			value: 'ToDoItem',
+			editMode: false
 		}
 	}
 
 	handleEdit = () => {
-		return (
-			<ToDoEdit
-				onClick={this.dismissEdit}
-				val={this.state.value}
-			/>
-		)
+		this.setState({
+			editMode: true
+		});
 	}
 	handleDelete = () => {
 		
@@ -29,16 +26,21 @@ export default class ToDoItems extends Component {
 		
 	}
 	dismissEdit = () => {
-
+		this.setState({
+			editMode: false
+		});
 	}
+
 	render() {
 		return (
 			<div className={CLASS}>
 				<ToDoItem
 					val={this.state.value}
-					handleCheck={this.handleCheck}
-					handleDelete={this.handleDelete}
-					handleEdit={this.handleEdit}
+					onCheck={this.handleCheck}
+					onDelete={this.handleDelete}
+					onEdit={this.handleEdit}
+					editMode = {this.state.editMode}
+					dismissEdit = {this.state.editMode}
 				/>
 			</div>
 		)

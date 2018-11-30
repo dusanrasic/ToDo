@@ -20,7 +20,7 @@
 		opacity: 1;
 		cursor: pointer;
 	}
-	.fa, .fa-check{
+	.fa, .fa-check, .fa-pencil, .fa-trash, .fa-times{
 		width: 20px;
 		height: 20px;
 		font-size: 20px;
@@ -42,6 +42,12 @@
 		}
 	}
 	&-trash{
+		@include button();
+		&:hover{
+			color: $red;
+		}
+	}
+	&-times{
 		@include button();
 		&:hover{
 			color: $red;

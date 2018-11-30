@@ -9,7 +9,6 @@ const CLASS='el-ToDoEdit';
 
 export const ToDoEdit = ({onClick, val}) =>{
 	const handleClick = (e) => {		
-		console.log('edit');
 		onClick && onClick(e);
 	}
 	return (
@@ -18,10 +17,10 @@ export const ToDoEdit = ({onClick, val}) =>{
 				val={val}
 			/>
 			<Button
-			icon={'times'}
-			onClick={handleClick}
-			diff='times'
-		/>
+				icon={'times'}
+				onClick={handleClick}
+				diff='times'
+			/>
 			<Separator/>
 		</div>
 	)
