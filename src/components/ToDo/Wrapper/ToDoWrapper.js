@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Add from '../Add/ToDoAdd';
 import Filter from '../Filter/ToDoFilter';
-import Items from '../Items/ToDoItems';
+import ToDoItems from '../Items/ToDoItems';
 
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -15,34 +15,20 @@ export class ToDoWrapper extends Component {
 
 	constructor(){
 		super()
-		this.state = {
-			data: []
-		}
 	}
 
 	componentDidMount(){
 		this.props.fetchToDoList();
 		console.log(this.props.data, 'wrapper')
-		this.setState({
-			data: this.props.data
-		})
-	}
-	
-	componentDidUpdate(prevProps){
-		if(this.props.data !== prevProps.data){
-			this.setState({
-				data: this.props.data
-			})
-		}
 	}
 	
   render() {
-		const {data} = this.state;
+		const {data} = this.props;
 		return (
 			<div className={CLASS}>
 				<Add/>
 				<Filter/>
-				<Items data = {data}/>
+				<ToDoItems data={data}/>
 			</div>
 		)
   }

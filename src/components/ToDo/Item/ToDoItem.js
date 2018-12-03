@@ -8,7 +8,7 @@ import './ToDoItem.scss';
 
 const CLASS='el-ToDoItem';
 
-export const ToDoItem = ({onEdit, onCheck, onDelete, val, editMode, dismissEdit}) =>{
+export const ToDoItem = ({onEdit, onCheck, onDelete, val, editMode, dismissEdit, key}) =>{
 
 	const handleCheck = (e) =>{
 		onCheck && onCheck(e);

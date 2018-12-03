@@ -1,32 +1,35 @@
 import {FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO} from './types';
 
-export const ToDoList = [];
-export let Arr = [];
+const itemStore = [];
 
-export const createLocalStorage = () => {
-	if(!localStorage.getItem('ToDoList')){
-		return localStorage.setItem('ToDoList', JSON.stringify(ToDoList));
+export const createOrFetchLocalStorage = () => {
+	const itemsFromStorage = localStorage.getItem('ToDoList');
+
+	if(!itemsFromStorage){
+		localStorage.setItem('ToDoList', JSON.stringify(itemStore));
 	}
 	else {
-		return JSON.parse(localStorage.getItem('ToDoList'));
+		const stateFromStorage = JSON.parse(itemsFromStorage);
+		itemStore.push.apply([...stateFromStorage]);
 	}
 }
 
 export const fetchToDoList = () => dispatch => {
-	createLocalStorage()
-	ToDoList.push.apply(JSON.parse(localStorage.getItem('ToDoList')));
+	createOrFetchLocalStorage();
+
 	return dispatch({
 		type: FETCH_TODO_LIST,
-		payload: ToDoList
+		payload: itemStore
 	});
 }
-export const addTodo = (toDo) => dispatch => {
-	ToDoList.push(toDo);
-	localStorage.setItem('ToDoList', JSON.stringify(ToDoList))
+
+export const addTodo = (toDo) => (dispatch, getState) => {
+	itemStore.push(toDo);
+	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
 	
 	return dispatch({
 		type: ADD_TODO,
-		payload: ToDoList
+		payload: itemStore
 	})
 }
 export const deleteTodo = () => dispatch => {

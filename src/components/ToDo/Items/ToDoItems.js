@@ -47,7 +47,8 @@ export default class ToDoItems extends Component {
 		}
 		let {id, content, active} = value;
 		return (
-			<ToDoItem 
+			<div key={key}>
+				<ToDoItem
 					val={content}
 					onCheck={this.handleCheck}
 					onDelete={this.handleDelete}
@@ -55,6 +56,7 @@ export default class ToDoItems extends Component {
 					editMode = {this.state.editMode}
 					dismissEdit = {this.state.editMode}
 				/>
+			</div>
 		)
 	}
 	render() {
