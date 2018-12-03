@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
+
 import {ToDoItem} from '../Item/ToDoItem';
+
 
 import './ToDoItems.scss';
 
 const CLASS = 'el-ToDoItems';
 
 export default class ToDoItems extends Component {
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		this.state = {
 			value: 'ToDoItem',
 			editMode: false
 		}
 	}
-
 	handleEdit = () => {
 		this.setState({
 			editMode: true
@@ -30,18 +31,36 @@ export default class ToDoItems extends Component {
 			editMode: false
 		});
 	}
+	renderItems = () => {
+		const {data} = this.props;
+		const noData = data && !data.length;
 
-	render() {
+		if (noData) {
+			return 'You have no ToDo items...';
+		}
+
+		return data.map(this.renderItem);
+	}
+	renderItem = (value, key) => {
+		if(!value){
+			return;
+		}
+		let {id, content, active} = value;
 		return (
-			<div className={CLASS}>
-				<ToDoItem
-					val={this.state.value}
+			<ToDoItem 
+					val={content}
 					onCheck={this.handleCheck}
 					onDelete={this.handleDelete}
 					onEdit={this.handleEdit}
 					editMode = {this.state.editMode}
 					dismissEdit = {this.state.editMode}
 				/>
+		)
+	}
+	render() {
+		return (
+			<div className={CLASS}>
+				{this.renderItems()}
 			</div>
 		)
 	}

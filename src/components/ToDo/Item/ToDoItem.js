@@ -19,7 +19,11 @@ export const ToDoItem = ({onEdit, onCheck, onDelete, val, editMode, dismissEdit}
 	}
 
 	const handleDeleteOrDismiss = (e) =>{
-		onDelete && onDelete(e);
+			if(!editMode){
+				onDelete && onDelete(e);
+			}else {
+				dismissEdit && dismissEdit(e);
+			}
 	}
 	const dismiss = (e) =>{
 		dismissEdit && dismissEdit(e);
