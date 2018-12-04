@@ -13,25 +13,25 @@ const CLASS='el-ToDoWrapper';
 
 export class ToDoWrapper extends Component {
 
-	constructor(){
-		super()
-	}
-
 	componentDidMount(){
 		this.props.fetchToDoList();
-		console.log(this.props.data, 'wrapper')
 	}
-	
-  render() {
-		const {data} = this.props;
-		return (
-			<div className={CLASS}>
-				<Add/>
-				<Filter/>
-				<ToDoItems data={data}/>
-			</div>
-		)
-  }
+	// componentDidUpdate(nextProps){
+	// 	if(this.props.data !== nextProps.data){
+	// 		this.props.fetchToDoList();
+	// 	}
+	// }
+	render() {
+			const {data} = this.props;
+
+			return (
+				<div className={CLASS}>
+					<Add/>
+					<Filter/>
+					<ToDoItems data={data}/>
+				</div>
+			)
+  	}
 }
 ToDoWrapper.propTypes = {
 	fetchToDoList: PropTypes.func.isRequired,

@@ -20,10 +20,12 @@ export default function(state = initialState, action) {
 		case DELETE_TODO:
 			return {
 				...state,
+				ToDoItems: action.payload
 			};
 		case MODIFY_TODO:
 			return {
 				...state,
+				ToDoItems: action.payload
 			};
 		default:
 			return state;

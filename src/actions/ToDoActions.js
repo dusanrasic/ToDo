@@ -26,14 +26,14 @@ export const fetchToDoList = () => dispatch => {
 export const addTodo = (toDo) => (dispatch, getState) => {
 	itemStore.push(toDo);
 	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
-	
 	return dispatch({
 		type: ADD_TODO,
 		payload: itemStore
 	})
 }
-export const deleteTodo = () => dispatch => {
-
+export const deleteTodo = (toDo) => dispatch => {
+	const deletedItem = itemStore.filter((element) => element.id === toDo.id);
+	console.log(deletedItem, 'deletedItem');
 }
 export const modifyTodo = () => dispatch => {
 

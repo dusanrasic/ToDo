@@ -41,6 +41,7 @@ export class ToDoAdd extends Component {
 			return;
 		}
 		const obj = {
+			id: Math.floor(Math.random()*10000),
 			content: this.state.inputValue,
 			active: true
 		}

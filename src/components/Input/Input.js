@@ -4,7 +4,7 @@ import './Input.scss';
 
 const CLASS = 'el-Input';
 
-export const Input = ({label, onFocus, onBlur, val, read, onChange}) => {
+export const Input = ({label, onFocus, onBlur, val, read, onChange, diff}) => {
 	const handleFocus = (e) => {
 		onFocus && onFocus(e);
 	}
@@ -14,8 +14,11 @@ export const Input = ({label, onFocus, onBlur, val, read, onChange}) => {
 	const handleChange = (e) => {
 		onChange && onChange(e)
 	}
+
+	const activeClass = diff ? CLASS+'-activeToDo' : '';
+
 	return (
-		<div className={CLASS}>
+		<div className={CLASS+' '+activeClass}>
 			<input 
 				type='text' 
 				placeholder={label} 
