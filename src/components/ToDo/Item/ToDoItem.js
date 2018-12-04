@@ -5,20 +5,24 @@ import {Separator} from '../../Separator/Separator';
 
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {deleteTodo} from '../../../actions/ToDoActions';
+import {deleteTodo, modifyTodo} from '../../../actions/ToDoActions';
 
 import './ToDoItem.scss';
 
 const CLASS='el-ToDoItem';
-
+let obj = {
+	id: null,
+	content: null,
+	active: false
+}
 class ToDoItem extends Component {
 
 	constructor(props){
 		super(props)
 		this.state = {
-			value: 'ToDoItem',
+			value: this.props.val,
 			editMode: false,
-			active: this.props.active
+			active: this.props.active,
 		}
 	}
 
@@ -32,27 +36,45 @@ class ToDoItem extends Component {
 				active: true
 			})
 		}
+		obj = {
+			id: this.props.id,
+			content: this.state.value,
+			active: this.state.active
+		}
+		this.props.modifyTodo(obj)
 	}
 
-	handleEdit= (e) =>{
-		// onEdit && onEdit(e);
+	handleEdit = (e) =>{
 		this.setState({
 			editMode: true
 		});
 	}
 
-	handleDeleteOrDismiss = (e) =>{
-			if(!this.state.editMode){
-				let {id}  = this.props;
-				this.props.deleteTodo(id);
-			}else {
-				this.setState({
-					editMode: false
-				});
-			}
+	handleChange = (e) => {
+		this.setState({
+			value: e.target.value
+		});
 	}
+
+	handleDeleteOrDismiss = (e) =>{
+		if(!this.state.editMode){
+			let {id}  = this.props;
+			this.props.deleteTodo(id);
+		}else {
+			this.setState({
+				editMode: false
+			});
+			obj = {
+				id: this.props.id,
+				content: this.state.value,
+				active: this.state.active
+			}
+			this.props.modifyTodo(obj)
+		}
+	}
+
 	renderItem = () =>{
-		const {val, id} = this.props;
+		const {id} = this.props;
 		return (
 			<div className={CLASS} key={id}>
 				{!this.state.editMode && <Button
@@ -61,9 +83,10 @@ class ToDoItem extends Component {
 					diff='check'
 				/>}
 				<Input
-					val={val}
+					val={this.state.value}
 					read={!this.state.editMode}
 					diff={this.state.active}
+					onChange={this.handleChange}
 				/>
 				{!this.state.editMode && <Button
 					icon={'pencil'}
@@ -85,10 +108,12 @@ class ToDoItem extends Component {
 }
 ToDoItem.propTypes = {
 	deleteTodo: PropTypes.func.isRequired,
+	modifyTodo: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
 	deleteTodo: deleteTodo,
+	modifyTodo: modifyTodo
 }
 
 export default connect(null, mapDispatchToProps)(ToDoItem);

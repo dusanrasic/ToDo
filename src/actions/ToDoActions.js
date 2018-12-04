@@ -45,6 +45,16 @@ export const deleteTodo = (toDoId) => dispatch => {
 	})
 
 }
-export const modifyTodo = () => dispatch => {
-
+export const modifyTodo = (toDo) => dispatch => {
+	const itemModified = []
+	itemModified.push(toDo);
+	const newArr = itemStore.map(obj => itemModified.find(o => o.id === obj.id) || obj);
+	itemStore.splice(0,itemStore.length);
+	newArr.forEach((item) => itemStore.push(item));
+	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
+	
+	return dispatch({
+		type: MODIFY_TODO,
+		payload: itemStore
+	})
 }
