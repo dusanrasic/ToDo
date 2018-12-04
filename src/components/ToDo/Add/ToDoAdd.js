@@ -43,7 +43,7 @@ export class ToDoAdd extends Component {
 		const obj = {
 			id: Math.floor(Math.random()*10000),
 			content: this.state.inputValue,
-			active: true
+			active: false
 		}
 		this.props.addTodo(obj);
 		this.setState({

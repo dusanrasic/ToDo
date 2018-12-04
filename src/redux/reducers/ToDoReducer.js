@@ -15,17 +15,17 @@ export default function(state = initialState, action) {
 		case ADD_TODO:
 			return {
 				...state,
-				ToDoItems: action.payload
+				ToDoItems: [...action.payload]
 			};
 		case DELETE_TODO:
 			return {
 				...state,
-				ToDoItems: action.payload
+				ToDoItems: [...action.payload]
 			};
 		case MODIFY_TODO:
 			return {
 				...state,
-				ToDoItems: action.payload
+				ToDoItems: [...action.payload]
 			};
 		default:
 			return state;

@@ -1,57 +1,95 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Button} from '../../Button/Button';
 import {Input} from '../../Input/Input';
 import {Separator} from '../../Separator/Separator';
+
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {deleteTodo} from '../../../actions/ToDoActions';
 
 import './ToDoItem.scss';
 
 const CLASS='el-ToDoItem';
 
-export const ToDoItem = ({onEdit, onCheck, onDelete, val, editMode, dismissEdit, activeMode}) =>{
+class ToDoItem extends Component {
 
-	const handleCheck = (e) =>{
-		onCheck && onCheck(e);
+	constructor(props){
+		super(props)
+		this.state = {
+			value: 'ToDoItem',
+			editMode: false,
+			active: this.props.active
+		}
 	}
 
-	const handleEdit= (e) =>{
-		onEdit && onEdit(e);
+	handleCheck = (e) =>{
+		if(this.state.active){
+			this.setState({
+				active: false
+			})
+		}else { 
+			this.setState({
+				active: true
+			})
+		}
 	}
 
-	const handleDeleteOrDismiss = (e) =>{
-			if(!editMode){
-				onDelete && onDelete(e);
+	handleEdit= (e) =>{
+		// onEdit && onEdit(e);
+		this.setState({
+			editMode: true
+		});
+	}
+
+	handleDeleteOrDismiss = (e) =>{
+			if(!this.state.editMode){
+				let {id}  = this.props;
+				this.props.deleteTodo(id);
 			}else {
-				dismissEdit && dismissEdit(e);
+				this.setState({
+					editMode: false
+				});
 			}
 	}
-	const renderItem = () =>{
+	renderItem = () =>{
+		const {val, id} = this.props;
 		return (
-			<div className={CLASS}>
-				{!editMode && <Button
+			<div className={CLASS} key={id}>
+				{!this.state.editMode && <Button
 					icon={'check'}
-					onClick={handleCheck}
+					onClick={this.handleCheck}
 					diff='check'
 				/>}
 				<Input
 					val={val}
-					read={!editMode}
-					diff={activeMode}
+					read={!this.state.editMode}
+					diff={this.state.active}
 				/>
-				{!editMode && <Button
+				{!this.state.editMode && <Button
 					icon={'pencil'}
-					onClick={handleEdit}
+					onClick={this.handleEdit}
 					diff='pencil'
 				/>}
 				<Button
-					icon={editMode ? 'times' : 'trash'}
-					onClick={handleDeleteOrDismiss}
-					diff={editMode ? 'times' : 'trash'}
+					icon={this.state.editMode ? 'times' : 'trash'}
+					onClick={this.handleDeleteOrDismiss}
+					diff={this.state.editMode ? 'times' : 'trash'}
 				/>
 				<Separator/>
 		  	</div>
 		)
 	}
-	return renderItem();
-	
+	render(){
+		return this.renderItem();
+	}	
 }
-export default ToDoItem;
+ToDoItem.propTypes = {
+	deleteTodo: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = {
+	deleteTodo: deleteTodo,
+}
+
+export default connect(null, mapDispatchToProps)(ToDoItem);
+

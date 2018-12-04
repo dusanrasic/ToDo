@@ -25,15 +25,25 @@ export const fetchToDoList = () => dispatch => {
 
 export const addTodo = (toDo) => (dispatch, getState) => {
 	itemStore.push(toDo);
-	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
+	localStorage.setItem('ToDoList', JSON.stringify(itemStore));
+
 	return dispatch({
 		type: ADD_TODO,
 		payload: itemStore
 	})
 }
-export const deleteTodo = (toDo) => dispatch => {
-	const deletedItem = itemStore.filter((element) => element.id === toDo.id);
-	console.log(deletedItem, 'deletedItem');
+
+export const deleteTodo = (toDoId) => dispatch => {
+	const items = itemStore.filter((element) => element.id !== toDoId);
+	itemStore.splice(0,itemStore.length);
+	items.forEach((item) => itemStore.push(item));
+	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
+	
+	return dispatch({
+		type: DELETE_TODO,
+		payload: itemStore
+	})
+
 }
 export const modifyTodo = () => dispatch => {
 

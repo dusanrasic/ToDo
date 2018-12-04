@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './ToDoFilter.scss';
 
@@ -18,7 +18,7 @@ export const ToDoFilter = ({onClick}) => {
 	}
 	const renderFilter = filters.map((item) => {
 		return (
-			<div key={item} className={CLASS+'-item'}>{item}</div>
+			<div key={item} className={CLASS+'-item'} onClick={handleClick}>{item}</div>
 		);
 	});
 	return (
