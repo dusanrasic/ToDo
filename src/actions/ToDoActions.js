@@ -1,4 +1,4 @@
-import {FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO} from './types';
+import {FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO, FILTER_TODO_LIST} from './types';
 
 const itemStore = [];
 
@@ -55,6 +55,17 @@ export const modifyTodo = (toDo) => dispatch => {
 	
 	return dispatch({
 		type: MODIFY_TODO,
+		payload: itemStore
+	})
+}
+export const filterToDo = (active) => dispatch => {
+	const items = itemStore.filter((element) => element.active !== active);
+	itemStore.splice(0,itemStore.length);
+	items.forEach((item) => itemStore.push(item));
+	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
+	
+	return dispatch({
+		type: FILTER_TODO_LIST,
 		payload: itemStore
 	})
 }

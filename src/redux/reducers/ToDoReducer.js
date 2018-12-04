@@ -1,4 +1,4 @@
-import { FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO} from '../../actions/types';
+import { FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO, FILTER_TODO_LIST} from '../../actions/types';
 
 const initialState = {
 	ToDoItems: [],
@@ -27,6 +27,11 @@ export default function(state = initialState, action) {
 				...state,
 				ToDoItems: [...action.payload]
 			};
+		case FILTER_TODO_LIST:
+			return {
+				...state,
+				ToDoItems: [...action.payload]
+			}
 		default:
 			return state;
 	}

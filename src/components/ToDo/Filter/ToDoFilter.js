@@ -1,30 +1,67 @@
-import React from 'react';
+import React, {Component} from 'react';
+
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {filterToDo} from '../../../actions/ToDoActions';
 
 import './ToDoFilter.scss';
 
 const CLASS = 'el-ToDoFilter';
+const filters = [
+	'View All',
+	'Active',
+	'Completed'
+]
 
-export const ToDoFilter = ({onClick}) => {
+class ToDoFilter extends Component {
 
-	const filters = [
-		'View All',
-		'Active',
-		'Completed'
-	]
-
-	const handleClick = (e) => {		
-
-		onClick && onClick(e);
+	constructor(props){
+		super(props);
+		this.state = {
+			filterActive: null
+		}
 	}
-	const renderFilter = filters.map((item) => {
+	
+	handleClick = (item) => {
+		// this.props.onClick && this.props.onClick(e);
+		if(item === 'View All'){
+			this.setState({
+				filterActive: null
+			})
+			this.props.filterToDo(this.state.filterActive)
+		}else if(item === 'Active'){
+			this.setState({
+				filterActive: false
+			})
+			this.props.filterToDo(this.state.filterActive)
+		}else{
+			this.setState({
+				filterActive: true
+			})
+			this.props.filterToDo(this.state.filterActive)
+		}		
+	}
+
+	renderFilter = () => filters.map((item) => {
 		return (
-			<div key={item} className={CLASS+'-item'} onClick={handleClick}>{item}</div>
+			<div key={item} className={CLASS+'-item'} onClick={() => this.handleClick(item)}>{item}</div>
 		);
 	});
-	return (
-		<div className={CLASS}>
-			{renderFilter}
-		</div>
-	);
+
+	render(){
+		return (
+			<div className={CLASS}>
+				{this.renderFilter()}
+			</div>
+		);
+	}
 }
-export default ToDoFilter;
+ToDoFilter.propTypes = {
+	filterToDo: PropTypes.func.isRequired
+};
+
+const mapDispatchToProps = {
+	filterToDo: filterToDo,
+}
+
+export default connect(null, mapDispatchToProps)(ToDoFilter);
