@@ -27,21 +27,22 @@ class ToDoItem extends Component {
 	}
 
 	handleCheck = (e) =>{
-		if(this.state.active){
-			this.setState({
-				active: false
-			})
-		}else { 
-			this.setState({
-				active: true
-			})
-		}
-		obj = {
+		this.setState({
+			active: !this.state.active,
+		},
+		this.handleSave
+		);
+	}
+
+	handleSave = () => {
+		const {modifyTodo} = this.props;
+
+		const updatedItem = {
 			id: this.props.id,
 			content: this.state.value,
 			active: this.state.active
 		}
-		this.props.modifyTodo(obj)
+		modifyTodo(updatedItem);
 	}
 
 	handleEdit = (e) =>{
@@ -85,7 +86,7 @@ class ToDoItem extends Component {
 				<Input
 					val={this.state.value}
 					read={!this.state.editMode}
-					diff={this.state.active}
+					diff={!this.state.active}
 					onChange={this.handleChange}
 					editMode={this.state.editMode}
 				/>

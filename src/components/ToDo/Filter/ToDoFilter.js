@@ -16,24 +16,7 @@ const filters = [
 
 class ToDoFilter extends Component {
 
-	// componentDidUpdate(){
-		
-	// }
 	handleClick = (item) => {
-		// this.props.onClick && this.props.onClick(e);
-		// if(item === 'View All'){
-		// 	this.setState({
-		// 		filterActive: 'View All'
-		// 	})
-		// }else if(item === 'Active'){
-		// 	this.setState({
-		// 		filterActive: 'Active'
-		// 	})
-		// }else{
-		// 	this.setState({
-		// 		filterActive: 'Completed'
-		// 	})
-		// }
 		this.props.filterToDo(item)		
 	}
 

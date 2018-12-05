@@ -1,66 +1,84 @@
-import {FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO, FILTER_TODO_LIST} from './types';
+import * as types from './types';
 
-const itemStore = [];
+const PERSISTANT_STORAGE_KEY = 'todo_list';
 
-export const createOrFetchLocalStorage = () => {
-	const itemsFromStorage = localStorage.getItem('ToDoList');
+export const initialize = () => (dispatch) => {
+	dispatch({
+		type: types.INITIALIZE_START,
+	});
 
-	if(!itemsFromStorage){
-		localStorage.setItem('ToDoList', JSON.stringify(itemStore));
+	const storedData = localStorage.getItem(PERSISTANT_STORAGE_KEY);
+
+	let initialData = [];
+	if (!storedData) {
+		localStorage.setItem(
+			PERSISTANT_STORAGE_KEY,
+			prepareForStorage(initialData)
+		);
+	} else {
+		const parsedData = prepareForRedux(storedData);
+		initialData = [...parsedData];
 	}
-	else {
-		const stateFromStorage = JSON.parse(itemsFromStorage);
-		itemStore.push.apply([...stateFromStorage]);
-	}
-}
-
-export const fetchToDoList = () => dispatch => {
-	createOrFetchLocalStorage();
 
 	return dispatch({
-		type: FETCH_TODO_LIST,
-		payload: itemStore
+		type: types.INITIALIZE_END,
+		payload: initialData,
+	});
+};
+
+export const addTodo = (toDo) => (dispatch, getState) => {
+	const currentList = getState().data.ToDoItems;
+	const newList = [...currentList, toDo];
+
+	localStorage.setItem(PERSISTANT_STORAGE_KEY, prepareForStorage(newList));
+	return dispatch({
+		type: types.ADD_TODO,
+		payload: newList,
 	});
 }
 
-export const addTodo = (toDo) => (dispatch, getState) => {
-	itemStore.push(toDo);
-	localStorage.setItem('ToDoList', JSON.stringify(itemStore));
+export const deleteTodo = (toDoId) => (dispatch, getState) => {
+	const currentList = getState().data.ToDoItems;
+	const newList = currentList.filter((value) => {
+		return value.id !== toDoId;
+	});
 
+	localStorage.setItem(PERSISTANT_STORAGE_KEY, prepareForStorage(newList));
 	return dispatch({
-		type: ADD_TODO,
-		payload: itemStore
-	})
-}
-
-export const deleteTodo = (toDoId) => dispatch => {
-	const items = itemStore.filter((element) => element.id !== toDoId);
-	itemStore.splice(0,itemStore.length);
-	items.forEach((item) => itemStore.push(item));
-	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
-	
-	return dispatch({
-		type: DELETE_TODO,
-		payload: itemStore
-	})
+		type: types.DELETE_TODO,
+		payload: newList,
+	});
 
 }
-export const modifyTodo = (toDo) => dispatch => {
-	const itemModified = []
-	itemModified.push(toDo);
-	const newArr = itemStore.map(obj => itemModified.find(o => o.id === obj.id) || obj);
-	itemStore.splice(0,itemStore.length);
-	newArr.forEach((item) => itemStore.push(item));
-	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
+export const modifyTodo = (toDo) => (dispatch, getState) => {
+	const currentList = getState().data.ToDoItems;
+	const newList = currentList.map((currentItem) => {
+		if(currentItem.id === toDo.id){
+			return toDo;
+		}
+		return currentItem;
+	})
+
+	localStorage.setItem(PERSISTANT_STORAGE_KEY, prepareForStorage(newList))
 	
 	return dispatch({
-		type: MODIFY_TODO,
-		payload: itemStore
+		type: types.MODIFY_TODO,
+		payload: newList
 	})
 }
 export const filterToDo = (active) => dispatch => {
 	return dispatch({
-		type: FILTER_TODO_LIST,
+		type: types.FILTER_TODO_LIST,
 		payload: active
 	})
 }
+
+// Helper Functions
+
+export const prepareForStorage = (data) => {
+	return JSON.stringify(data);
+};
+
+export const prepareForRedux = (data) => {
+	return JSON.parse(data);
+};

@@ -5,7 +5,7 @@ import ToDoItems from '../Items/ToDoItems';
 
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {fetchToDoList} from '../../../actions/ToDoActions';
+import {initialize} from '../../../actions/ToDoActions';
 import {getVisibleTodos} from '../../../redux/selectors';
 
 import './ToDoWrapper.scss';
@@ -15,11 +15,12 @@ const CLASS='el-ToDoWrapper';
 export class ToDoWrapper extends Component {
 
 	componentDidMount(){
-		this.props.fetchToDoList();
+		const {initializeApp} = this.props;
+		initializeApp && initializeApp();
 	}
 
 	render() {
-			const {data, activeFilter} = this.props;
+			const {data} = this.props;
 			return (
 				<div className={CLASS}>
 					<Add/>
@@ -30,7 +31,7 @@ export class ToDoWrapper extends Component {
   	}
 }
 ToDoWrapper.propTypes = {
-	fetchToDoList: PropTypes.func.isRequired,
+	initializeApp: PropTypes.func.isRequired,
 	data: PropTypes.array.isRequired,
 };
 
@@ -39,7 +40,7 @@ ToDoWrapper.defaultProps = {
 };
 
 const mapDispatchToProps = {
-	fetchToDoList: fetchToDoList,
+	initializeApp: initialize,
 }
 const mapStateToProps = state => {
 	return {
