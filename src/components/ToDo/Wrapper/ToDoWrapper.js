@@ -6,6 +6,7 @@ import ToDoItems from '../Items/ToDoItems';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {fetchToDoList} from '../../../actions/ToDoActions';
+import {getVisibleTodos} from '../../../redux/selectors';
 
 import './ToDoWrapper.scss';
 
@@ -16,14 +17,9 @@ export class ToDoWrapper extends Component {
 	componentDidMount(){
 		this.props.fetchToDoList();
 	}
-	// componentDidUpdate(nextProps){
-	// 	if(this.props.data !== nextProps.data){
-	// 		this.props.fetchToDoList();
-	// 	}
-	// }
-	render() {
-			const {data} = this.props;
 
+	render() {
+			const {data, activeFilter} = this.props;
 			return (
 				<div className={CLASS}>
 					<Add/>
@@ -41,10 +37,14 @@ ToDoWrapper.propTypes = {
 ToDoWrapper.defaultProps = {
 	data: [],
 };
+
 const mapDispatchToProps = {
 	fetchToDoList: fetchToDoList,
 }
-const mapStateToProps = state => ({
-	data: state.data.ToDoItems
-})
+const mapStateToProps = state => {
+	return {
+		data: getVisibleTodos(state),
+		activeFilter: state.data.activeFilter,
+	}
+}
 export default connect(mapStateToProps, mapDispatchToProps)(ToDoWrapper);

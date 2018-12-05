@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {filterToDo} from '../../../actions/ToDoActions';
+import {getVisibilityFilter} from '../../../redux/selectors';
 
 import './ToDoFilter.scss';
 
@@ -15,31 +16,25 @@ const filters = [
 
 class ToDoFilter extends Component {
 
-	constructor(props){
-		super(props);
-		this.state = {
-			filterActive: null
-		}
-	}
-	
+	// componentDidUpdate(){
+		
+	// }
 	handleClick = (item) => {
 		// this.props.onClick && this.props.onClick(e);
-		if(item === 'View All'){
-			this.setState({
-				filterActive: null
-			})
-			this.props.filterToDo(this.state.filterActive)
-		}else if(item === 'Active'){
-			this.setState({
-				filterActive: false
-			})
-			this.props.filterToDo(this.state.filterActive)
-		}else{
-			this.setState({
-				filterActive: true
-			})
-			this.props.filterToDo(this.state.filterActive)
-		}		
+		// if(item === 'View All'){
+		// 	this.setState({
+		// 		filterActive: 'View All'
+		// 	})
+		// }else if(item === 'Active'){
+		// 	this.setState({
+		// 		filterActive: 'Active'
+		// 	})
+		// }else{
+		// 	this.setState({
+		// 		filterActive: 'Completed'
+		// 	})
+		// }
+		this.props.filterToDo(item)		
 	}
 
 	renderFilter = () => filters.map((item) => {
@@ -60,8 +55,12 @@ ToDoFilter.propTypes = {
 	filterToDo: PropTypes.func.isRequired
 };
 
+const mapStateToProps = (state) => ({
+	activeFilter: getVisibilityFilter(state),
+});
+
 const mapDispatchToProps = {
 	filterToDo: filterToDo,
 }
 
-export default connect(null, mapDispatchToProps)(ToDoFilter);
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoFilter);

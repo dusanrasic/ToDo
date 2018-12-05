@@ -87,6 +87,7 @@ class ToDoItem extends Component {
 					read={!this.state.editMode}
 					diff={this.state.active}
 					onChange={this.handleChange}
+					editMode={this.state.editMode}
 				/>
 				{!this.state.editMode && <Button
 					icon={'pencil'}
@@ -113,7 +114,7 @@ ToDoItem.propTypes = {
 
 const mapDispatchToProps = {
 	deleteTodo: deleteTodo,
-	modifyTodo: modifyTodo
+	modifyTodo: modifyTodo,
 }
 
 export default connect(null, mapDispatchToProps)(ToDoItem);

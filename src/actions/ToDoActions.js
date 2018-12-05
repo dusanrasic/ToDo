@@ -59,13 +59,8 @@ export const modifyTodo = (toDo) => dispatch => {
 	})
 }
 export const filterToDo = (active) => dispatch => {
-	const items = itemStore.filter((element) => element.active !== active);
-	itemStore.splice(0,itemStore.length);
-	items.forEach((item) => itemStore.push(item));
-	localStorage.setItem('ToDoList', JSON.stringify(itemStore))
-	
 	return dispatch({
 		type: FILTER_TODO_LIST,
-		payload: itemStore
+		payload: active
 	})
 }

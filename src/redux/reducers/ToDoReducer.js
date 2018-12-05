@@ -3,6 +3,7 @@ import { FETCH_TODO_LIST, ADD_TODO, DELETE_TODO, MODIFY_TODO, FILTER_TODO_LIST} 
 const initialState = {
 	ToDoItems: [],
 	error: null,
+	activeFilter: 'View All'
 };
 
 export default function(state = initialState, action) {
@@ -30,7 +31,7 @@ export default function(state = initialState, action) {
 		case FILTER_TODO_LIST:
 			return {
 				...state,
-				ToDoItems: [...action.payload]
+				activeFilter: action.payload
 			}
 		default:
 			return state;
