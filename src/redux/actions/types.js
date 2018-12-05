@@ -1,0 +1,7 @@
+export const INITIALIZE_START = 'INITIALIZE_START';
+export const INITIALIZE_END = 'INITIALIZE_END';
+
+export const ADD_TODO = 'ADD_TODO';
+export const DELETE_TODO = 'DELETE_TODO';
+export const UPDATE_TODO = 'UPDATE_TODO';
+export const SET_TODO_FILTER = 'SET_TODO_FILTER';

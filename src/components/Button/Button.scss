@@ -1,26 +1,30 @@
-@import '../StyleDefaults/variables';
+@import '../../styles/variables';
 
-@mixin button(){
+@mixin button() {
 	display: flex;
-	width: 36px;
-	height: 36px;
-	transition: all 0.3s ease-in-out;
-	background-color: darkgray;
-	border-radius: 25px;
-	color: $white;
 	justify-content: center;
 	align-items: center;
-	opacity: 0.8;
+	width: 36px;
+	height: 36px;
+	min-width: 36px;
+	min-height: 36px;
+	background: gray;
+	border-radius: 100%;
+	color: $white;
+	opacity: 0.5;
 	box-sizing: border-box;
-	margin: 2px;
+	margin: 0 5px;
+	cursor: pointer;
+
 	&-disabled{
 		display: none;
 	}
+
 	&:hover{
 		opacity: 1;
-		cursor: pointer;
 	}
-	.fa, .fa-check, .fa-pencil, .fa-trash, .fa-times{
+
+	.fa {
 		width: 20px;
 		height: 20px;
 		font-size: 20px;
@@ -28,30 +32,7 @@
 		text-align: center;
 	}
 }
+
 .el-Button{
-	&-check{
-		@include button();
-		&:hover{
-			color: $green;
-		}
-	}
-	&-pencil{
-		@include button();
-		&:hover{
-			color: $blue;
-		}
-	}
-	&-trash{
-		@include button();
-		&:hover{
-			color: $red;
-		}
-	}
-	&-times{
-		@include button();
-		&:hover{
-			color: $red;
-		}
-	}
-	
+	@include button();
 }

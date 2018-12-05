@@ -1,0 +1,24 @@
+.el-Item {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+
+	.el-Input {
+		flex-shrink: 1;
+	}
+
+	.el-Button {
+		flex-basis: 36px;
+	}
+
+	&-completed {
+		opacity: 0.5;
+
+		.el-Input {
+			text-decoration: line-through;
+			color: greenyellow !important;
+		}
+	}
+}
