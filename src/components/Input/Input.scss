@@ -1,31 +1,92 @@
 @import '../StyleDefaults/variables';
+@import '../StyleDefaults/mixins';
 
 .el-Input{
-	box-sizing: border-box;
-	width: 100%;
-	&-text{
-		width: 100%;
-		height: 40px;
-		font-size: $font-size-input;
-		color: $white;
-		background-color: $background-color;
-		border: none;
+	@include desktop{
 		box-sizing: border-box;
-		padding-right: 10px;
-		&:focus{
-			outline: none;
+		width: 100%;
+		&-text{
+			width: 100%;
+			height: 40px;
+			font-size: $font-size-input;
+			color: $white;
+			background-color: $background-color;
+			border: none;
+			box-sizing: border-box;
+			padding-right: 10px;
+			&:focus{
+				outline: none;
+			}
+			&:hover{
+				cursor: pointer;
+			}
 		}
-		&:hover{
-			cursor: pointer;
+		&-activeToDo{
+			.el-Input-text{
+				text-decoration: line-through;
+				text-decoration-color: $green;
+			}
+		}
+		&-editModeToDo{
+			width: 620px !important;
 		}
 	}
-	&-activeToDo{
-		.el-Input-text{
-			text-decoration: line-through;
-			text-decoration-color: $green;
+	@include tablet{
+		box-sizing: border-box;
+		width: 100%;
+		&-text{
+			width: 100%;
+			height: 40px;
+			font-size: $font-size-input;
+			color: $white;
+			background-color: $background-color;
+			border: none;
+			box-sizing: border-box;
+			padding-right: 10px;
+			&:focus{
+				outline: none;
+			}
+			&:hover{
+				cursor: pointer;
+			}
+		}
+		&-activeToDo{
+			.el-Input-text{
+				text-decoration: line-through;
+				text-decoration-color: $green;
+			}
+		}
+		&-editModeToDo{
+			width: 620px !important;
 		}
 	}
-	&-editModeToDo{
-		width: 620px !important;
+	@include mobile{
+		box-sizing: border-box;
+		width: 100%;
+		&-text{
+			width: 100%;
+			height: 40px;
+			font-size: 20px;
+			color: $white;
+			background-color: $background-color;
+			border: none;
+			box-sizing: border-box;
+			padding-right: 10px;
+			&:focus{
+				outline: none;
+			}
+			&:hover{
+				cursor: pointer;
+			}
+		}
+		&-activeToDo{
+			.el-Input-text{
+				text-decoration: line-through;
+				text-decoration-color: $green;
+			}
+		}
+		&-editModeToDo{
+			width: 225px !important;
+		}
 	}
 }

@@ -1,57 +1,103 @@
 @import '../StyleDefaults/variables';
+@import '../StyleDefaults/mixins';
 
 @mixin button(){
-	display: flex;
-	width: 36px;
-	height: 36px;
-	transition: all 0.3s ease-in-out;
-	background-color: darkgray;
-	border-radius: 25px;
-	color: $white;
-	justify-content: center;
-	align-items: center;
-	opacity: 0.8;
-	box-sizing: border-box;
-	margin: 2px;
-	&-disabled{
-		display: none;
+	@include desktop{
+		display: flex;
+		width: 36px;
+		height: 36px;
+		transition: all 0.3s ease-in-out;
+		background-color: darkgray;
+		border-radius: 25px;
+		color: $white;
+		justify-content: center;
+		align-items: center;
+		opacity: 0.6;
+		box-sizing: border-box;
+		margin: 2px;
+		&-disabled{
+			display: none;
+		}
+		&:hover{
+			opacity: 1;
+			cursor: pointer;
+		}
+		.fa, .fa-check, .fa-pencil, .fa-trash, .fa-times{
+			width: 20px;
+			height: 20px;
+			font-size: 20px;
+			font-weight: lighter;
+			text-align: center;
+		}
 	}
-	&:hover{
-		opacity: 1;
-		cursor: pointer;
+	@include tablet{
+		display: flex;
+		width: 36px;
+		height: 36px;
+		transition: all 0.3s ease-in-out;
+		background-color: darkgray;
+		border-radius: 25px;
+		color: $white;
+		justify-content: center;
+		align-items: center;
+		opacity: 0.6;
+		box-sizing: border-box;
+		margin: 2px;
+		&-disabled{
+			display: none;
+		}
+		&:hover{
+			opacity: 1;
+			cursor: pointer;
+		}
+		.fa, .fa-check, .fa-pencil, .fa-trash, .fa-times{
+			width: 20px;
+			height: 20px;
+			font-size: 20px;
+			font-weight: lighter;
+			text-align: center;
+		}
 	}
-	.fa, .fa-check, .fa-pencil, .fa-trash, .fa-times{
-		width: 20px;
-		height: 20px;
-		font-size: 20px;
-		font-weight: lighter;
-		text-align: center;
+	@include mobile{
+		display: flex;
+		width: 31px;
+		height: 31px;
+		transition: all 0.3s ease-in-out;
+		background-color: darkgray;
+		border-radius: 25px;
+		color: $white;
+		justify-content: center;
+		align-items: center;
+		opacity: 0.6;
+		box-sizing: border-box;
+		margin: 2px;
+		&-disabled{
+			display: none;
+		}
+		&:hover{
+			opacity: 1;
+			cursor: pointer;
+		}
+		.fa, .fa-check, .fa-pencil, .fa-trash, .fa-times{
+			width: 15px;
+			height: 15px;
+			font-size: 15px;
+			font-weight: lighter;
+			text-align: center;
+		}
 	}
 }
 .el-Button{
 	&-check{
 		@include button();
-		&:hover{
-			color: $green;
-		}
 	}
 	&-pencil{
 		@include button();
-		&:hover{
-			color: $blue;
-		}
 	}
 	&-trash{
 		@include button();
-		&:hover{
-			color: $red;
-		}
 	}
 	&-times{
 		@include button();
-		&:hover{
-			color: $red;
-		}
 	}
-	
 }

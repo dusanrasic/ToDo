@@ -79,9 +79,9 @@ class ToDoItem extends Component {
 		return (
 			<div className={CLASS} key={id}>
 				{!this.state.editMode && <Button
-					icon={'check'}
+					icon={this.state.active ? 'check' : 'times'}
 					onClick={this.handleCheck}
-					diff='check'
+					diff={this.state.active ? 'check' : 'times'}
 				/>}
 				<Input
 					val={this.state.value}

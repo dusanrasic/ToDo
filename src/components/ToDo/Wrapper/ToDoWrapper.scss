@@ -1,7 +1,25 @@
+@import '../../StyleDefaults/mixins';
+
 .el-ToDoWrapper{
-	width: 700px;
-	min-width: 500px;
-	height: auto;
-	box-sizing: border-box;
-	padding: 20px;
+	@include desktop{
+		width: 700px;
+		min-width: 500px;
+		height: auto;
+		box-sizing: border-box;
+		padding: 20px;
+	}
+	@include tablet{
+		width: 700px;
+		min-width: 500px;
+		height: auto;
+		box-sizing: border-box;
+		padding: 20px;
+	}
+	@include mobile{
+		width: 300px;
+		min-width: 280px;
+		height: auto;
+		box-sizing: border-box;
+		padding: 20px;
+	}
 }

@@ -1,9 +1,40 @@
+@import '../../StyleDefaults/mixins';
+
 .el-ToDoItem{
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	.el-Input{
-		width: 539px;
+	@include desktop{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		.el-Input{
+			width: 539px;
+			&-text{
+				padding-left: 10px;
+			}
+		}
+	}
+	@include tablet{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		.el-Input{
+			width: 539px;
+			&-text{
+				padding-left: 10px;
+			}
+		}
+	}
+	@include mobile{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		.el-Input{
+			width: 155px;
+			&-text{
+				padding-left: 5px;
+			}
+		}
 	}
 }
